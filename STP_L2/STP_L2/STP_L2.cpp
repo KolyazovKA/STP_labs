@@ -36,16 +36,8 @@ std::ostream& operator<<(std::ostream& out, RECORD& z)
         << std::setw(5) << z.citizen.numb_apartment << "|" << std::setw(34) << z.citizen.FIO << "|"
         << std::setw(14) << z.payment_type << "|" << std::setw(4) << z.payment_date.d << "|" << std::setw(5)
         << z.payment_date.m << "|" << std::setw(6) << z.payment_date.y << "|" << std::setw(7)
-        << z.payment_sum << "|\n";
+        << z.payment_sum << "|";
     return out;
-}
-
-int operator>(Date v, Date w)
-{
-    if (v.y > w.y) return 1;
-    if ((v.y == w.y) && (v.m > w.m)) return 1;
-    if ((v.y == w.y) && (v.m == w.m) && (v.d > w.d)) return 1;
-    return 0;
 }
 
 
@@ -175,8 +167,7 @@ void Com_payment::save_in_file() {
     fout.close();
 }
 
-
-
+//  вывод данных в файл
 void Com_payment::output_in_file() {
     fstream fout;
     int count = 95;
@@ -427,14 +418,17 @@ void Com_payment::output_data() {
     for (int i = 0; i < count; i++)
         cout << "_";
     for (int i = 0; i < number_of_lines; i++) {
-        cout << "\n|" << setw(5) << px[i].number_of_note << "|" << setw(5) << px[i].citizen.numb_house << "|"
+        /*cout << "\n|" << setw(5) << px[i].number_of_note << "|" << setw(5) << px[i].citizen.numb_house << "|"
             << setw(5) << px[i].citizen.numb_apartment << "|" << setw(34) << px[i].citizen.FIO << "|"
             << setw(14) << px[i].payment_type << "|" << setw(4) << px[i].payment_date.d << "|" << setw(5)
             << px[i].payment_date.m << "|" << setw(6) << px[i].payment_date.y << "|" << setw(7)
-            << px[i].payment_sum << "|\n";
-        for (int i = 0; i < count; i++)
-            cout << "_";
+            << px[i].payment_sum << "|\n";*/
+        cout << px[i];
     }
+    cout << endl;
+    for (int i = 0; i < count; i++)
+        cout << "_";
+
     _getch();
 }
 
