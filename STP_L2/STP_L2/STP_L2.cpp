@@ -30,6 +30,23 @@ struct RECORD { // структура, содержащая клиента, ви
     int payment_sum; //Сумма платежа
 };
 
+std::ostream& operator<<(std::ostream& out, RECORD& z)
+{
+    out << "\n|" << std::setw(5) << z.number_of_note << "|" << std::setw(5) << z.citizen.numb_house << "|"
+        << std::setw(5) << z.citizen.numb_apartment << "|" << std::setw(34) << z.citizen.FIO << "|"
+        << std::setw(14) << z.payment_type << "|" << std::setw(4) << z.payment_date.d << "|" << std::setw(5)
+        << z.payment_date.m << "|" << std::setw(6) << z.payment_date.y << "|" << std::setw(7)
+        << z.payment_sum << "|\n";
+    return out;
+}
+
+int operator>(Date v, Date w)
+{
+    if (v.y > w.y) return 1;
+    if ((v.y == w.y) && (v.m > w.m)) return 1;
+    if ((v.y == w.y) && (v.m == w.m) && (v.d > w.d)) return 1;
+    return 0;
+}
 
 
 class Com_payment {
@@ -190,7 +207,6 @@ void Com_payment::add_note() {
     RECORD c, * p;
     p = new RECORD[number_of_lines + 1];
     string dop;
-    char ch;
 
     if (p == NULL) {
         cout << "Нет памяти.\n Добавить новую запись не удается.\n";
