@@ -30,6 +30,15 @@ struct RECORD { // структура, содержащая клиента, ви
     int payment_sum; //Сумма платежа
 };
 
+bool operator>(Date v, Date w)
+{
+    if (v.y > w.y) return true;
+    if ((v.y == w.y) && (v.m > w.m)) return true;
+    if ((v.y == w.y) && (v.m == w.m) && (v.d > w.d)) return true;
+    return false;
+}
+
+
 std::ostream& operator<<(std::ostream& out, RECORD& z)
 {
     out << "\n|" << std::setw(5) << z.number_of_note << "|" << std::setw(5) << z.citizen.numb_house << "|"
@@ -77,7 +86,6 @@ Com_payment::Com_payment(Com_payment& copy_c)
         px = new RECORD[number_of_lines];
         if (px == NULL) {
             cout << "нет памяти.\n";
-            cout << "Конструктор копирования.\n";
             exit(1);
         }
         for (i = 0; i < number_of_lines; i++)
@@ -418,11 +426,6 @@ void Com_payment::output_data() {
     for (int i = 0; i < count; i++)
         cout << "_";
     for (int i = 0; i < number_of_lines; i++) {
-        /*cout << "\n|" << setw(5) << px[i].number_of_note << "|" << setw(5) << px[i].citizen.numb_house << "|"
-            << setw(5) << px[i].citizen.numb_apartment << "|" << setw(34) << px[i].citizen.FIO << "|"
-            << setw(14) << px[i].payment_type << "|" << setw(4) << px[i].payment_date.d << "|" << setw(5)
-            << px[i].payment_date.m << "|" << setw(6) << px[i].payment_date.y << "|" << setw(7)
-            << px[i].payment_sum << "|\n";*/
         cout << px[i];
     }
     cout << endl;
@@ -436,6 +439,8 @@ void Com_payment::output_data() {
 
 
 
+
+// сортировка по ФИО
 void Com_payment::sort_by_name() {
     RECORD trash;
     for (int i = 0; i < number_of_lines; i++)
@@ -449,7 +454,7 @@ void Com_payment::sort_by_name() {
     _getch();
 }
 
-
+//  сортировка по сумме платежа
 void Com_payment::sort_by_payment() {
     RECORD trash;
     for (int i = 0; i < number_of_lines; i++)
@@ -463,25 +468,23 @@ void Com_payment::sort_by_payment() {
     _getch();
 }
 
-
+//сортировка по типу и по дате
 void Com_payment::sort_by_payment_type() {
     RECORD trash;
     for (int i = 0; i < number_of_lines; i++)
         for (int j = i + 1; j < number_of_lines; j++)
-            if (px[i].payment_type > px[j].payment_type /*and (px[i].payment_date.y > px[j].payment_date.y
-                or px[i].payment_date.y == px[j].payment_date.y and px[i].payment_date.m > px[j].payment_date.m
-                or px[i].payment_date.y == px[j].payment_date.y and px[i].payment_date.m == px[j].payment_date.m
-                and px[i].payment_date.d > px[j].payment_date.d)*/) {
+            if (px[i].payment_type > px[j].payment_type) {
                 trash = px[i];
                 px[i] = px[j];
                 px[j] = trash;
             }
     for (int i = 0; i < number_of_lines; i++)
         for (int j = i + 1; j < number_of_lines; j++)
-            if (px[i].payment_type == px[j].payment_type and (px[i].payment_date.y > px[j].payment_date.y
+            /*if (px[i].payment_type == px[j].payment_type and (px[i].payment_date.y > px[j].payment_date.y
                 or px[i].payment_date.y == px[j].payment_date.y and px[i].payment_date.m > px[j].payment_date.m
                 or px[i].payment_date.y == px[j].payment_date.y and px[i].payment_date.m == px[j].payment_date.m
-                and px[i].payment_date.d > px[j].payment_date.d)) {
+                and px[i].payment_date.d > px[j].payment_date.d))*/ 
+            if (px[i].payment_type == px[j].payment_type and px[i].payment_date > px[j].payment_date){
                 trash = px[i];
                 px[i] = px[j];
                 px[j] = trash;
