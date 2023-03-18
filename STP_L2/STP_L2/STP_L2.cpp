@@ -31,7 +31,6 @@ struct RECORD { // структура, содержащая клиента, ви
 };
 
 
-
 class Com_payment {
 private:
     string data_filename = "data_file.txt";
