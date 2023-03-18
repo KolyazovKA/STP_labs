@@ -14,7 +14,6 @@ using namespace std;
 * конструктор копирования
 * перегруженная операция присваивания ?объектов?
 
-
 */
 
 
@@ -89,7 +88,6 @@ public:
 //  конструктор копирования (не проверен)
 Com_payment::Com_payment(Com_payment& copy_c)
 {
-    int i;
     number_of_lines = copy_c.number_of_lines;
     if (number_of_lines == 0)
         px = NULL;
@@ -99,7 +97,7 @@ Com_payment::Com_payment(Com_payment& copy_c)
             cout << "нет памяти.\n";
             exit(1);
         }
-        for (i = 0; i < number_of_lines; i++)
+        for (int i = 0; i < number_of_lines; i++)
             px[i] = copy_c.px[i];
     }
 }
@@ -498,7 +496,7 @@ int main()
 {
     setlocale(LC_ALL, "");
 
-    Com_payment rec;
+    
     int x = 0;
     int choice;
     string trash;
@@ -516,10 +514,15 @@ int main()
         cout << "\t\t7. Отсортировать по виду платежа\n";
         cout << "\t\t8. Отсортировать по сумме платежа\n";
         cout << "\t\t9. Завершение работы программы\n";
-        cout << "\t\t10. Быстрое добавление записи\n";
+        /*cout << "\t\t20. Быстрое добавление записи\n";*/
+        cout << "\t\t10. Проверка конструктора копирования";
 
         cout << "\nВаш выбор: ";
         cin >> choice;
+
+        if (choice == 10) {
+            Com_payment test(com);
+        }
 
         switch (choice) {
         case 1:
@@ -549,7 +552,10 @@ int main()
         case 9:
             flag = false;
             break;
-        case 10:
+        case 10: {
+            Com_payment test(com);
+        }break;
+        case 20:
             com.fast_add();
             break;
         default:
