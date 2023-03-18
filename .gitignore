@@ -2,4 +2,4 @@
 *.sln
 *.vcxproj.filters
 *.vcxproj.user
-
+.vs
