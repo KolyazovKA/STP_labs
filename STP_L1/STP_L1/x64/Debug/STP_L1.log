@@ -1,0 +1,3 @@
+﻿  STP_L1.cpp
+C:\projects\STP_labs\STP_L1\STP_L1\STP_L1.cpp(193,10): warning C4101: ch: неиспользованная локальная переменная
+  STP_L1.vcxproj -> C:\projects\STP_labs\STP_L1\x64\Debug\STP_L1.exe
