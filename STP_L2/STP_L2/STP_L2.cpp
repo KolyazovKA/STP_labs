@@ -5,8 +5,19 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <cstdio>
+# include <stdlib.h>
 
 using namespace std;
+
+/*
+Надо сделать:
+* конструктор копирования
+* перегруженная операция присваивания ?объектов?
+
+
+*/
+
+
 
 struct CLIENT //структура данных клиента, содержащая номер дома и квартиры, ФИО
 {
@@ -75,7 +86,7 @@ public:
 };
 
 
-//  конструктор копирования 
+//  конструктор копирования (не проверен)
 Com_payment::Com_payment(Com_payment& copy_c)
 {
     int i;
@@ -473,18 +484,7 @@ void Com_payment::sort_by_payment_type() {
     RECORD trash;
     for (int i = 0; i < number_of_lines; i++)
         for (int j = i + 1; j < number_of_lines; j++)
-            if (px[i].payment_type > px[j].payment_type) {
-                trash = px[i];
-                px[i] = px[j];
-                px[j] = trash;
-            }
-    for (int i = 0; i < number_of_lines; i++)
-        for (int j = i + 1; j < number_of_lines; j++)
-            /*if (px[i].payment_type == px[j].payment_type and (px[i].payment_date.y > px[j].payment_date.y
-                or px[i].payment_date.y == px[j].payment_date.y and px[i].payment_date.m > px[j].payment_date.m
-                or px[i].payment_date.y == px[j].payment_date.y and px[i].payment_date.m == px[j].payment_date.m
-                and px[i].payment_date.d > px[j].payment_date.d))*/ 
-            if (px[i].payment_type == px[j].payment_type and px[i].payment_date > px[j].payment_date){
+            if (px[i].payment_type > px[j].payment_type or (px[i].payment_type == px[j].payment_type and px[i].payment_date > px[j].payment_date)) {
                 trash = px[i];
                 px[i] = px[j];
                 px[j] = trash;
