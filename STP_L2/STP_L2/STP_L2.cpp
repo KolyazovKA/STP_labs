@@ -9,15 +9,6 @@
 
 using namespace std;
 
-/*
-Надо сделать:
-* конструктор копирования
-* перегруженная операция присваивания ?объектов?
-
-*/
-
-
-
 struct CLIENT //структура данных клиента, содержащая номер дома и квартиры, ФИО
 {
     int numb_house; //Номер дома
@@ -82,7 +73,30 @@ public:
     void sort_by_name();
     void sort_by_payment_type();
     void sort_by_payment();
+
+    friend std::ostream& operator<<(std::ostream& out, Com_payment& z);
 };
+
+ostream& operator<<(ostream& out, Com_payment& z)
+{
+    cout << "\n";
+    int count = 95;
+    for (int i = 0; i < count; i++)
+        cout << "_";
+    cout << "\n|  №  | № д | №кв |          Фамилия и инициалы      |   Тип плат.  |       Дата      | Сумма |\n";
+    cout << "\n|     |     |     |                                  |              |День|Месяц|  Год |       |\n";
+    for (int i = 0; i < count; i++)
+        cout << "_";
+    for (int i = 0; i < z.number_of_lines; i++) {
+        cout << z.px[i];
+    }
+    cout << endl;
+    for (int i = 0; i < count; i++)
+        cout << "_";
+
+    _getch();
+    return out;
+}
 
 
 //  конструктор копирования (не проверен)
@@ -101,6 +115,7 @@ Com_payment::Com_payment(Com_payment& copy_c)
             px[i] = copy_c.px[i];
     }
 }
+
 
 
 //  чтение данных из файла
@@ -425,23 +440,26 @@ void Com_payment::delete_note() {
 
 //  вывод на экран
 void Com_payment::output_data() {
-    cout << "\n";
-    //6 + 6 + 6 + 35 + 13 + 5 + 6 + 7 + 8 = 91
-    int count = 95;
-    for (int i = 0; i < count; i++)
-        cout << "_";
-    cout << "\n|  №  | № д | №кв |          Фамилия и инициалы      |   Тип плат.  |       Дата      | Сумма |\n";
-    cout << "\n|     |     |     |                                  |              |День|Месяц|  Год |       |\n";
-    for (int i = 0; i < count; i++)
-        cout << "_";
-    for (int i = 0; i < number_of_lines; i++) {
-        cout << px[i];
-    }
-    cout << endl;
-    for (int i = 0; i < count; i++)
-        cout << "_";
+    //
+    // _____НЕ_ТРОГАТЬ._НЕВЕДОМЫЕ_СИЛЫ_ИСПОЛЬЗУЮТ_ЭТОТ_ДЛЯ_СВОИХ_ГРЯНЫХ_ДЕЛ._НЕ_ТРОГАЙ_ЕГО. НЕ ЗЛИ_ИХ_____
+    // 
+    //cout << "\n";
+    ////6 + 6 + 6 + 35 + 13 + 5 + 6 + 7 + 8 = 91
+    //int count = 95;
+    //for (int i = 0; i < count; i++)
+    //    cout << "_";
+    //cout << "\n|  №  | № д | №кв |          Фамилия и инициалы      |   Тип плат.  |       Дата      | Сумма |\n";
+    //cout << "\n|     |     |     |                                  |              |День|Месяц|  Год |       |\n";
+    //for (int i = 0; i < count; i++)
+    //    cout << "_";
+    //for (int i = 0; i < number_of_lines; i++) {
+    //    cout << px[i];
+    //}
+    //cout << endl;
+    //for (int i = 0; i < count; i++)
+    //    cout << "_";
 
-    _getch();
+    //_getch();
 }
 
 
@@ -538,7 +556,7 @@ int main()
             com.delete_note();
             break;
         case 5:
-            com.output_data();
+            cout << com;
             break;
         case 6:
             com.sort_by_name();
@@ -554,6 +572,10 @@ int main()
             break;
         case 10: {
             Com_payment test(com);
+            cout << "Скопированный объект: \n\n";
+            cout << test << endl;
+            cout << "Оригинальный объект: \n\n";
+            cout << com << endl;
         }break;
         case 20:
             com.fast_add();
