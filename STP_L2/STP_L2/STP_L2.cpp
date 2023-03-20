@@ -18,7 +18,7 @@ struct CLIENT //структура данных клиента, содержащ
 
 struct Date //структура данных для даты
 {
-    int d; //день 
+    int d; //день  
     int m; //месяц
     short y; //год
 };
@@ -67,7 +67,6 @@ public:
     void add_note();
     void fast_add();
     void delete_note();
-    void output_data();
 
     void sort_by_name();
     void sort_by_payment_type();
@@ -83,7 +82,7 @@ ostream& operator<<(ostream& out, Com_payment& z)
     for (int i = 0; i < count; i++)
         cout << "_";
     cout << "\n|  №  | № д | №кв |          Фамилия и инициалы      |   Тип плат.  |       Дата      | Сумма |\n";
-    cout << "\n|     |     |     |                                  |              |День|Месяц|  Год |       |\n";
+    cout << "|     |     |     |                                  |              |День|Месяц|  Год |       |\n";
     for (int i = 0; i < count; i++)
         cout << "_";
     for (int i = 0; i < z.number_of_lines; i++) {
@@ -382,8 +381,19 @@ void Com_payment::delete_note() {
     RECORD* c;
     int line, c_lines;
     string choice;
-    Com_payment::output_data();
     c_lines = 0;
+
+    int count = 95;
+    for (int i = 0; i < count; i++)
+        cout << "_";
+    cout << "\n|  №  | № д | №кв |          Фамилия и инициалы      |   Тип плат.  |       Дата      | Сумма |\n";
+    cout << "|     |     |     |                                  |              |День|Месяц|  Год |       |\n";
+    for (int i = 0; i < count; i++)
+        cout << "_";
+    for (int i = 0; i < number_of_lines; i++)
+        cout << px[i];
+    for (int i = 0; i < count; i++)
+        cout << "_";
 
     while (1) {
         cout << "\nВведите номер строки, которую надо удалить: "; cin >> line; cout << endl;
@@ -429,36 +439,14 @@ void Com_payment::delete_note() {
         cout << "Удаление завершено.";
         _getch();
     }
+    else if (choice == "n" or choice == "N") {
+        cout << "Процесс завершен без удаления строки.\n";
+    }
     else {
         cout << "Процесс удаления прерван.";
         _getch();
         return;
     }
-}
-
-
-//  вывод на экран
-void Com_payment::output_data() {
-    //
-    // _____НЕ_ТРОГАТЬ._НЕВЕДОМЫЕ_СИЛЫ_ИСПОЛЬЗУЮТ_ЭТОТ_ДЛЯ_СВОИХ_ГРЯНЫХ_ДЕЛ._НЕ_ТРОГАЙ_ЕГО. НЕ ЗЛИ_ИХ_____
-    // 
-    //cout << "\n";
-    ////6 + 6 + 6 + 35 + 13 + 5 + 6 + 7 + 8 = 91
-    //int count = 95;
-    //for (int i = 0; i < count; i++)
-    //    cout << "_";
-    //cout << "\n|  №  | № д | №кв |          Фамилия и инициалы      |   Тип плат.  |       Дата      | Сумма |\n";
-    //cout << "\n|     |     |     |                                  |              |День|Месяц|  Год |       |\n";
-    //for (int i = 0; i < count; i++)
-    //    cout << "_";
-    //for (int i = 0; i < number_of_lines; i++) {
-    //    cout << px[i];
-    //}
-    //cout << endl;
-    //for (int i = 0; i < count; i++)
-    //    cout << "_";
-
-    //_getch();
 }
 
 
