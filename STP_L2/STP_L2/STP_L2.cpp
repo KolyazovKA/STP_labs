@@ -72,6 +72,8 @@ public:
     void sort_by_payment_type();
     void sort_by_payment();
 
+    Com_payment& operator=(Com_payment& z);
+
     friend std::ostream& operator<<(std::ostream& out, Com_payment& z);
 };
 
@@ -96,6 +98,25 @@ ostream& operator<<(ostream& out, Com_payment& z)
     return out;
 }
 
+Com_payment& Com_payment::operator=(Com_payment& z) {
+    int i;
+    if (this == & z) return *this;
+    if (px != NULL) delete[]px;
+    number_of_lines = z.number_of_lines;
+    if (z.px == NULL) px = NULL;
+    else {
+        px = new RECORD[number_of_lines];
+        if (px == NULL) {
+            cout << "нет памяти.\n";
+            cout << "операция присваивания.\n";
+            _getch(); return z;
+        }
+        for (i = 0; i < number_of_lines; i++)
+            px[i] = z.px[i];
+    }
+    return *this;
+
+}
 
 //  конструктор копирования (не проверен)
 Com_payment::Com_payment(Com_payment& copy_c)
@@ -520,7 +541,8 @@ int main()
         cout << "\t\t8. Отсортировать по сумме платежа\n";
         cout << "\t\t9. Завершение работы программы\n";
         /*cout << "\t\t20. Быстрое добавление записи\n";*/
-        cout << "\t\t10. Проверка конструктора копирования";
+        cout << "\t\t10. Проверка конструктора копирования\n";
+        cout << "\t\t11. Проверка оператора присваивания";
 
         cout << "\nВаш выбор: ";
         cin >> choice;
@@ -558,11 +580,20 @@ int main()
             flag = false;
             break;
         case 10: {
-            Com_payment test(com);
+            Com_payment test1(com);
             cout << "Скопированный объект: \n\n";
-            cout << test << endl;
+            cout << test1 << endl;
             cout << "Оригинальный объект: \n\n";
             cout << com << endl;
+        }break;
+        case 11:
+        {
+            Com_payment test2 = com;
+            cout << "Присвоенный объект: \n\n";
+            cout << test2 << endl;
+            cout << "Оригинальный объект: \n\n";
+            cout << com << endl;
+
         }break;
         case 20:
             com.fast_add();
