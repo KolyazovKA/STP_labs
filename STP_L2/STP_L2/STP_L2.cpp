@@ -31,11 +31,16 @@ struct RECORD { // структура, содержащая клиента, ви
     int payment_sum; //Сумма платежа
 };
 
-bool operator>(Date v, Date w)
+bool operator>(RECORD v, RECORD w)
 {
-    if (v.y > w.y) return true;
-    if ((v.y == w.y) && (v.m > w.m)) return true;
-    if ((v.y == w.y) && (v.m == w.m) && (v.d > w.d)) return true;
+    if (v.payment_type > w.payment_type)
+        return true;
+    else if (v.payment_type == w.payment_type) {
+        if (v.payment_date.y > w.payment_date.y) return true;
+        if ((v.payment_date.y == w.payment_date.y) && (v.payment_date.m > w.payment_date.m)) return true;
+        if ((v.payment_date.y == w.payment_date.y) && (v.payment_date.m == w.payment_date.m) && (v.payment_date.d > w.payment_date.d)) return true;
+        return false;
+    }
     return false;
 }
 
@@ -508,7 +513,7 @@ void Com_payment::sort_by_payment_type() {
     RECORD trash;
     for (int i = 0; i < number_of_lines; i++)
         for (int j = i + 1; j < number_of_lines; j++)
-            if (px[i].payment_type > px[j].payment_type or (px[i].payment_type == px[j].payment_type and px[i].payment_date > px[j].payment_date)) {
+            if (px[i] > px[j]) {
                 trash = px[i];
                 px[i] = px[j];
                 px[j] = trash;
@@ -588,10 +593,11 @@ int main()
         }break;
         case 11:
         {
-            Com_payment test2 = com;
-            cout << "Присвоенный объект: \n\n";
-            cout << test2 << endl;
-            cout << "Оригинальный объект: \n\n";
+            Com_payment test2, test3;
+            test2 = test3 = com;
+            cout << "\nПрисвоенные объекты: \n\n";
+            cout << test2 << test3 <<endl;
+            cout << "\n\nОригинальный объект: \n";
             cout << com << endl;
 
         }break;
